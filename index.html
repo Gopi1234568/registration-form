@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 500px;
+      margin: 80px auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    td {
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    input[type="text"], textarea {
+      width: 200px;
+      padding: 5px;
+      border: 2px solid #ccc;
+    }
+
+    .error {
+      color: crimson;
+      font-size: 14px;
+    }
+
+    .error-border {
+      border: 2px solid crimson !important;
+    }
+
+    input[type="submit"] {
+      padding: 6px 12px;
+      margin-left: 90px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Registration Form</h2>
+
+  <form id="registrationForm" onsubmit="return validateForm();">
+    <table>
+      <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" id="name" name="name"></td>
+        <td><span id="nameError" class="error"></span></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="text" id="email" name="email"></td>
+        <td><span id="emailError" class="error"></span></td>
+      </tr>
+      <tr>
+        <td><label for="website">Website:</label></td>
+        <td><input type="text" id="website" name="website"></td>
+        <td><span id="websiteError" class="error"></span></td>
+      </tr>
+      <tr>
+        <td><label for="message">Message:</label></td>
+        <td><textarea id="message" name="message" rows="4"></textarea></td>
+        <td><span id="messageError" class="error"></span></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<script>
+function validateForm() {
+  let valid = true;
+
+  document.querySelectorAll('.error').forEach(el => el.innerText = '');
+  document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('error-border'));
+
+  const name = document.getElementById("name");
+  const email = document.getElementById("email");
+  const website = document.getElementById("website");
+  const message = document.getElementById("message");
+
+  if (name.value.trim() === "") {
+    document.getElementById("nameError").innerText = "This field is required";
+    name.classList.add("error-border");
+    valid = false;
+  }
+
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if (email.value.trim() === "") {
+    document.getElementById("emailError").innerText = "A valid email address is required";
+    email.classList.add("error-border");
+    valid = false;
+  } else if (!emailPattern.test(email.value.trim())) {
+    document.getElementById("emailError").innerText = "A valid email address is required";
+    email.classList.add("error-border");
+    valid = false;
+  }
+
+  const websitePattern = /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/.*)?$/i;
+  if (website.value.trim() === "") {
+    document.getElementById("websiteError").innerText = "A valid url is required";
+    website.classList.add("error-border");
+    valid = false;
+  } else if (!websitePattern.test(website.value.trim())) {
+    document.getElementById("websiteError").innerText = "A valid url is required";
+    website.classList.add("error-border");
+    valid = false;
+  }
+
+  if (message.value.trim() === "") {
+    document.getElementById("messageError").innerText = "This field is required";
+    message.classList.add("error-border");
+    valid = false;
+  }
+
+  return valid;
+}
+</script>
+
+</body>
+</html>
